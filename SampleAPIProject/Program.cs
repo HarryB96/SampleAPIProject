@@ -17,25 +17,36 @@ namespace SampleAPIProject
         {
             ProcessCompetitions().Wait();
         }
-        private static async Task ProcessCompetitions()
+        private static async Task<List<Fixtures>> ProcessCompetitions()
         {
             client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(
-                new MediaTypeWithQualityHeaderValue("application/vnd.github.v3.raw"));
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/vnd.github.v3.raw"));
             client.DefaultRequestHeaders.Add("User-Agent", ".NET Foundation Repository Reporter");
 
             var stringTask = client.GetStringAsync("https://api.github.com/repos/footballcsv/england/contents/2010s/2019-20/eng.1.csv");
 
             var msg = await stringTask;
-            Console.Write(msg);
 
-            //TextReader reader = new StreamReader(msg);
-            //var csvReader = new CsvReader(reader);
-            //var fixtures = csvReader.GetRecords<Fixtures>();
-            //foreach (var fixture in fixtures)
-            //{
-            //    Console.WriteLine(fixture);
-            //}
+            //Split original CSV string into a string array
+            string[] msgSplit = msg.Split('\n');
+            List<Fixtures> fixtures = new List<Fixtures>();
+            Fixtures fixture = new Fixtures();
+
+            //changing the strings into fixture objects
+            for (int i = 1; i < msgSplit.Length - 1; i++)
+            {
+                string[] itemArray = msgSplit[i].Split(',');
+                fixture.Round = itemArray[0];
+                fixture.Date = itemArray[1];
+                fixture.Team1 = itemArray[2];
+                fixture.FT = itemArray[3];
+                fixture.HT = itemArray[4];
+                fixture.Team2 = itemArray[5];
+
+                fixtures.Add(fixture);
+            }
+
+            return fixtures;
         }
     }
 
