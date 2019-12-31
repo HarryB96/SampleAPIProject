@@ -1,3 +1,3 @@
 # SampleAPIProject
 
-This is a console core app which incorperates an API to fetch data from a GIT repository
+This is a console core app which uses an API to get football data from fotball-data.org
