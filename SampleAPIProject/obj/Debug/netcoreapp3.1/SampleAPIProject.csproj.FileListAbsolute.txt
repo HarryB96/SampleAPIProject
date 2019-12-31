@@ -4,10 +4,10 @@ C:\Users\Harry Barnett\Engineering45\Week8\Day3\SampleAPIProject\SampleAPIProjec
 C:\Users\Harry Barnett\Engineering45\Week8\Day3\SampleAPIProject\SampleAPIProject\bin\Debug\netcoreapp3.1\SampleAPIProject.runtimeconfig.dev.json
 C:\Users\Harry Barnett\Engineering45\Week8\Day3\SampleAPIProject\SampleAPIProject\bin\Debug\netcoreapp3.1\SampleAPIProject.dll
 C:\Users\Harry Barnett\Engineering45\Week8\Day3\SampleAPIProject\SampleAPIProject\bin\Debug\netcoreapp3.1\SampleAPIProject.pdb
-C:\Users\Harry Barnett\Engineering45\Week8\Day3\SampleAPIProject\SampleAPIProject\bin\Debug\netcoreapp3.1\CsvHelper.dll
 C:\Users\Harry Barnett\Engineering45\Week8\Day3\SampleAPIProject\SampleAPIProject\obj\Debug\netcoreapp3.1\SampleAPIProject.AssemblyInfoInputs.cache
 C:\Users\Harry Barnett\Engineering45\Week8\Day3\SampleAPIProject\SampleAPIProject\obj\Debug\netcoreapp3.1\SampleAPIProject.AssemblyInfo.cs
-C:\Users\Harry Barnett\Engineering45\Week8\Day3\SampleAPIProject\SampleAPIProject\obj\Debug\netcoreapp3.1\SampleAPIProject.csproj.CopyComplete
 C:\Users\Harry Barnett\Engineering45\Week8\Day3\SampleAPIProject\SampleAPIProject\obj\Debug\netcoreapp3.1\SampleAPIProject.dll
 C:\Users\Harry Barnett\Engineering45\Week8\Day3\SampleAPIProject\SampleAPIProject\obj\Debug\netcoreapp3.1\SampleAPIProject.pdb
 C:\Users\Harry Barnett\Engineering45\Week8\Day3\SampleAPIProject\SampleAPIProject\obj\Debug\netcoreapp3.1\SampleAPIProject.csprojAssemblyReference.cache
+C:\Users\Harry Barnett\Engineering45\Week8\Day3\SampleAPIProject\SampleAPIProject\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+C:\Users\Harry Barnett\Engineering45\Week8\Day3\SampleAPIProject\SampleAPIProject\obj\Debug\netcoreapp3.1\SampleAPIProject.csproj.CopyComplete

@@ -1,11 +1,12 @@
-﻿using CsvHelper;
-using System;
+﻿using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.IO;
 using System.Linq;
 using System.Collections.Generic;
+using Newtonsoft.Json;
+using System.Data;
 
 namespace SampleAPIProject
 {
@@ -51,7 +52,7 @@ namespace SampleAPIProject
         //}
 
         static HttpClient client = new HttpClient();
-        private static async Task GetCompetitions()
+        private static async Task<List<Competition>> GetCompetitions()
         {
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -60,7 +61,12 @@ namespace SampleAPIProject
             var stringTask = client.GetStringAsync("http://api.football-data.org/v2/competitions");
             var msg = await stringTask;
 
-            Console.WriteLine(msg);
+            var json = msg.Remove(0, 41);
+            var jsonArray = json.Remove(json.Length-1);
+
+            List<Competition> competitions = JsonConvert.DeserializeObject<List<Competition>>(jsonArray);
+
+            return competitions;
         }
     }
 
@@ -78,4 +84,39 @@ namespace SampleAPIProject
     //    public string HT { get; set; }
     //    public string Team2 { get; set; }
     //}
+
+    class Competition
+    {
+        public int Id { get; set; }
+        public Area Area { get; set; }
+        public string Name { get; set; }
+        public string Code { get; set; }
+        public string EmblemURL { get; set; }
+        public string Plan { get; set; }
+        public CurrentSeason CurrentSeason { get; set; }
+        public int NumberOfAvailableSeasons { get; set; }
+        public string LastUpdated { get; set; }
+        
+    }
+    class Area
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+    }
+    class CurrentSeason
+    {
+        public int Id { get; set; }
+        public string StartDate { get; set; }
+        public string EndDate { get; set; }
+        public int? CurrentMatchday { get; set; }
+        public Winner Winner { get; set; }
+    }
+    class Winner
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string ShortName { get; set; }
+        public string Tla { get; set; }
+        public string CrestURL { get; set; }
+    }
 }
