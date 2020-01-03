@@ -12,6 +12,8 @@ namespace SampleAPIProject
     {
         static void Main(string[] args)
         {
+            SetHeaders();
+
             //CompetitionList competitionList = GetCompetitionList().Result;
             //List<Competition> competitions = competitionList.Competitions;
             //competitions.ForEach(c => Console.WriteLine(c.Name));
@@ -22,11 +24,23 @@ namespace SampleAPIProject
 
             //TeamsList teamsList = GetTeamsList().Result;
             //List<Team> teams = teamsList.Teams;
-            //teams.ForEach(t => Console.WriteLine(t.Name));
+            //teams.ForEach(t => Console.WriteLine($"{t.Name}, {t.Id}"));
+
+            //Team team = GetTeam(563).Result;
+            //List<Player> players = team.Squad;
+            //Console.WriteLine(team.Name);
+            //players.ForEach(p => Console.WriteLine($"{p.Name}, {p.Position}"));
 
             //MatchList matchList = GetMatchList().Result;
             //List<Match> matches = matchList.Matches;
-            //matches.ForEach(m => Console.WriteLine(m.Status));
+            //matches.ForEach(m => Console.WriteLine($"{m.HomeTeam.Name} vs {m.AwayTeam.Name}"));
+
+            StandingsList standingsList = GetStandingsListForLeague(2021).Result;
+            List<Table> tables = standingsList.Standings;
+            Table total = tables.Find(t => t.Type.Equals(Type.TOTAL));
+            List<Standing> standings = total.table;
+            standings.ForEach(s => Console.WriteLine($"{s.Position}, {s.Team.Name}"));
+            
         }
 
         #region GitHubAPI
@@ -73,43 +87,73 @@ namespace SampleAPIProject
         }
         static async Task<CompetitionList> GetCompetitionList()
         {
-            SetHeaders();
-
-            var stringTask = client.GetStringAsync("http://api.football-data.org/v2/competitions");
-            var msg = await stringTask;
-
+            var msg = await client.GetStringAsync("http://api.football-data.org/v2/competitions");
             CompetitionList competitionList = JsonConvert.DeserializeObject<CompetitionList>(msg);
             return competitionList;
         }
 
         static async Task<AreaList> GetAreaList()
         {
-            SetHeaders();
-
-            var stringTask = client.GetStringAsync("https://api.football-data.org/v2/areas");
-            var msg = await stringTask;
+            var msg = await client.GetStringAsync("https://api.football-data.org/v2/areas");
             AreaList areaList = JsonConvert.DeserializeObject<AreaList>(msg);
-
             return areaList;
         }
         static async Task<TeamsList> GetTeamsList()
         {
-            SetHeaders();
-
-            var stringTask = client.GetStringAsync("https://api.football-data.org/v2/teams");
-            var msg = await stringTask;
+            var msg = await client.GetStringAsync("https://api.football-data.org/v2/teams");
             TeamsList teamsList = JsonConvert.DeserializeObject<TeamsList>(msg);
             return teamsList;
         }
+        static async Task<TeamsList> GetTeamsListInLeague(int id)
+        {
+            var msg = await client.GetStringAsync($"https://api.football-data.org/v2/competitions/{id}/teams");
+            TeamsList teamsList = JsonConvert.DeserializeObject<TeamsList>(msg);
+            return teamsList;
+        }
+        static async Task<Team> GetTeam(int id)
+        {
+            var msg = await client.GetStringAsync($"https://api.football-data.org/v2/teams/{id}");
+            Team team = JsonConvert.DeserializeObject<Team>(msg);
+            return team;
+        }
         static async Task<MatchList> GetMatchList()
         {
-            SetHeaders();
-            var stringTask = client.GetStringAsync("https://api.football-data.org/v2/matches");
-            var msg = await stringTask;
+            var msg = await client.GetStringAsync("https://api.football-data.org/v2/matches");
+            MatchList matchList = JsonConvert.DeserializeObject<MatchList>(msg);
+            return matchList;
+        }
+        static async Task<MatchList> GetMatchesForTeam(int id)
+        {
+            var msg = await client.GetStringAsync($"http://api.football-data.org/v2/teams/{id}/matches");
+            MatchList matchList = JsonConvert.DeserializeObject<MatchList>(msg);
+            return matchList;
+        }
+        static async Task<MatchList> GetMatchesForCompetition(int id)
+        {
+            var msg = await client.GetStringAsync($"http://api.football-data.org/v2/competitions/{id}/matches");
+            MatchList matchList = JsonConvert.DeserializeObject<MatchList>(msg);
+            return matchList;
+        }
+        static async Task<StandingsList> GetStandingsListForLeague(int id)
+        {
+            var msg = await client.GetStringAsync($"https://api.football-data.org/v2/competitions/{id}/standings");
+            StandingsList standingsList = JsonConvert.DeserializeObject<StandingsList>(msg);
+            return standingsList;
+        }
+        static async Task<Player> GetPlayerInfo(int id)
+        {
+            var msg = await client.GetStringAsync($"https://api.fooball-data.org/v2/players/{id}");
+            Player player = JsonConvert.DeserializeObject<Player>(msg);
+            return player;
+        }
+        static async Task<MatchList> GetPlayerMatchList(int id)
+        {
+            var msg = await client.GetStringAsync($"https://api.football-data.org/v2/players/{id}/matches");
             MatchList matchList = JsonConvert.DeserializeObject<MatchList>(msg);
             return matchList;
         }
     }
+
     #region GitHubAPIClass
     //class Fixtures
     //{

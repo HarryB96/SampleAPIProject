@@ -20,18 +20,12 @@ namespace SampleAPIProject
         HOME,
         AWAY
     }
-    //public enum Stage
-    //{
-    //    FIRST_QUALIFYING_ROUND,
-    //    SECOND_QUALIFYING_ROUND,
-    //    THIRD_QUALIFYING_ROUND,
-    //    PLAY_OFF_ROUND,
-    //    GROUP_STAGE,
-    //    ROUND_OF_16,
-    //    QUARTER_FINALS,
-    //    SEMI_FINALS,
-    //    FINAL
-    //}
+    public enum Type
+    {
+        TOTAL,
+        HOME,
+        AWAY
+    }
     class CompetitionList
     {
         public int Count { get; set; }
@@ -125,6 +119,7 @@ namespace SampleAPIProject
         public int? Founded { get; set; }
         public string ClubColors { get; set; }
         public string Venue { get; set; }
+        public List<Player> Squad { get; set; }
         public string LastUpdated { get; set; }
     }
     class Score
@@ -163,5 +158,46 @@ namespace SampleAPIProject
         public Team AwayTeam { get; set; }
         public List<Referee> Referees { get; set; }
 
+    }
+    class Player
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string DateOfBirth { get; set; }
+        public string CountryOfBirth { get; set; }
+        public string Nationality { get; set; }
+        public string Position { get; set; }
+        public int? ShirtNumber { get; set; }
+        public string LastUpdated { get; set; }
+        public string Role { get; set; }
+    }
+    class StandingsList
+    {
+        public Filters Filters { get; set; }
+        public Competition Competition { get; set; }
+        public CurrentSeason Season { get; set; }
+        public List<Table> Standings { get; set; }
+    }
+    class Table
+    {
+        public string Stage { get; set; }
+        public Type Type { get; set; }
+        public string Group { get; set; }
+        public List<Standing> table { get; set; }
+    }
+    class Standing
+    {
+        public int Position { get; set; }
+        public Team Team { get; set; }
+        public int PlayedGames { get; set; }
+        public int Won { get; set; }
+        public int Draw { get; set; }
+        public int Lost { get; set; }
+        public int Points { get; set; }
+        public int GoalsFor { get; set; }
+        public int GoalsAgainst { get; set; }
+        public int GoalDifference { get; set; }
     }
 }
